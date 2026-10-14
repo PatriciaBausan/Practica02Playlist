@@ -33,12 +33,28 @@ const canciones = [
     },
 
     {
-        titulo: "Pasión de Noche",
-        artista: "djovan",
-        genero: "Latín Urbano",
-        audio: "audio/corazonflamenco.mp3",
-        imagen: "imagenes/PasionDeNoche.png"
-    }
+        titulo: "Gvidon-Medicine",
+        artista: "Gvidon",
+        genero: "Música Pop",
+        audio: "audio/gvidon-gvidon-medicine.mp3",
+        imagen: "imagenes/Medicine.png"
+    },
+
+        {
+        titulo: "Christmas",
+        artista: "Tunetank",
+        genero: "Navidad",
+        audio: "audio/navidad.mp3",
+        imagen: "imagenes/navidad.png"
+    },
+        {
+        titulo: "Bring Back the Swing",
+        artista: "EvolvingVibes",
+        genero: "Upbeat Jazz",
+        audio: "audio/bring.mp3",
+        imagen: "imagenes/Bring.png"
+    },
+
 
 ];
 
