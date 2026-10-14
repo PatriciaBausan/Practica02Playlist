@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JUKEBOX</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+    <header id="cabecera">
+        <div id="logo">
+            <div id="logoIcono"></div>
+            <div id="informacionLogo">
+                <h1 id="tituloPagina">JUKEBOX</h1>
+                <p id="subtituloPagina">Tu música, tus reglas</p>
+            </div>
+        </div>
+    </header>
+
+    <main id="contenido">
+
+        <section id="playlist">
+            <div id="cabeceraPlaylist">
+                <h2 id="tituloPlaylist">Lista de reproducción</h2>
+                <span id="numeroCanciones"></span>
+            </div>
+            <div id="listaCanciones"></div>
+        </section>
+
+        <section id="panelDerecho">
+            <div id="cancionActual">
+                <img id="imagenCancion" src="" alt="Portada de la canción">
+
+                <div id="informacionCancion">
+                    <span id="estadoCancion">LISTO PARA REPRODUCIR</span>
+                    <h2 id="tituloCancion">Selecciona una canción</h2>
+                    <p id="artistaCancion">Artista</p>
+                    <span id="generoCancion">Género</span>
+                </div>
+            </div>
+
+            <div id="ecualizador">
+                <div id="cabeceraEcualizador">
+                    <h2 id="tituloEcualizador">Ecualizador</h2>
+                    <span id="estadoEcualizador">ACTIVO</span>
+                </div>
+                <div id="visualizador"></div>
+
+                <div id="controlesAudio">
+                    <div id="controlGraves">
+                        <label for="graves">Graves</label>
+                        <input type="range" id="graves" min="-10" max="10" value="0">
+                        <span id="valorGraves">0 dB</span>
+                    </div>
+
+                    <div id="controlMedios">
+                        <label for="medios">Medios</label>
+                        <input type="range" id="medios" min="-10" max="10" value="0">
+                        <span id="valorMedios">0 dB</span>
+                    </div>
+
+                    <div id="controlAgudos">
+                        <label for="agudos">Agudos</label>
+                        <input type="range" id="agudos" min="-10" max="10" value="0">
+                        <span id="valorAgudos">0 dB</span>
+                    </div>
+                </div>
+
+                <button id="btnRestablecer"> Restablecer </button>
+            </div>
+        </section>
+    </main>
+
+    <footer id="reproductor">
+
+        <div id="progreso">
+            <span id="tiempoActual">0:00</span>
+            <input type="range" id="barraProgreso" min="0" max="100" value="0">
+            <span id="tiempoTotal">0:00</span>
+        </div>
+
+        <div id="controlesReproductor">
+
+            <div id="miniCancion">
+                <img id="miniImagen" src="" alt="Portada de la canción">
+
+                <div id="miniInformacion">
+                    <strong id="miniTitulo">Selecciona una canción</strong>
+                    <span id="miniArtista">Artista</span>
+                </div>
+            </div>
+
+            <div id="botones">
+                <button id="btnAleatorio" title="Activar aleatorio"> ⇆ </button>
+                <button id="btnAnterior" title="Canción anterior"> ⏮ </button>
+                <button id="btnPlay" title="Reproducir"> ▶ </button>
+                <button id="btnSiguiente" title="Canción siguiente"> ⏭ </button>
+                <button id="btnRepetir" title="Activar repetir"> ↻ </button>
+            </div>
+
+            <div id="controlVolumen">
+                <span id="iconoVolumen">🔊</span>
+                <input type="range" id="volumen" min="0" max="1" step="0.01" value="0.8">
+                <span id="valorVolumen">80%</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1676 @@
+/* ==========================================
+   DUENDE - FUEGO FLAMENCO
+   VERSIÓN MÁS DINÁMICA
+   (misma estructura de ids y clases)
+========================================== */
+
+:root {
+    /* Paleta: rojo flamenco + oro sobre negro cálido */
+    --fondo: #110707;
+    --tarjeta: #1f1010;
+    --tarjeta-hover: #321a14;
+    --morado: #ef4444;      /* color principal (rojo) */
+    --azul: #f59e0b;        /* color secundario (oro) */
+    --texto: #fff5ec;
+    --secundario: #c9a99a;
+    --borde: rgba(255, 170, 120, 0.12);
+    --degradado: linear-gradient(135deg, #ef4444, #f59e0b);
+    --brillo-morado: rgba(239, 68, 68, 0.4);
+    --brillo-azul: rgba(245, 158, 11, 0.3);
+
+    /* Versiones en RGB para usar con transparencia */
+    --c1: 239, 68, 68;
+    --c2: 245, 158, 11;
+
+    /* Tonos claros para textos destacados */
+    --claro: #fdba74;
+    --claro-2: #ffe4cc;
+    --claro-3: #fcd9a8;
+    --c2-claro: #fcd34d;
+
+    --transicion: 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    --rebote: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--texto);
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(var(--c1), 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(var(--c2), 0.12),
+            transparent 35%
+        ),
+        var(--fondo);
+
+    background-size: 140% 140%;
+    animation: fondoDinamico 16s ease-in-out infinite alternate;
+}
+
+@keyframes fondoDinamico {
+    from {
+        background-position: 0% 0%;
+    }
+
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+/* Luces de ambiente que flotan por detrás de la página */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+body::before {
+    width: 520px;
+    height: 520px;
+    top: 8%;
+    left: -140px;
+    background: radial-gradient(
+        circle,
+        rgba(var(--c1), 0.16),
+        transparent 65%
+    );
+    animation: orbeUno 18s ease-in-out infinite alternate;
+}
+
+body::after {
+    width: 600px;
+    height: 600px;
+    bottom: 5%;
+    right: -180px;
+    background: radial-gradient(
+        circle,
+        rgba(var(--c2), 0.14),
+        transparent 65%
+    );
+    animation: orbeDos 22s ease-in-out infinite alternate;
+}
+
+@keyframes orbeUno {
+    to {
+        transform: translate(120px, 160px) scale(1.2);
+    }
+}
+
+@keyframes orbeDos {
+    to {
+        transform: translate(-140px, -120px) scale(1.15);
+    }
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+.cancion:focus-visible {
+    outline: 2px solid var(--claro);
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   CABECERA
+========================================== */
+
+#cabecera {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    padding: 15px 5%;
+    background: rgba(22, 10, 10, 0.88);
+    border-bottom: 1px solid var(--borde);
+    backdrop-filter: blur(18px);
+    position: relative;
+    overflow: hidden;
+    animation: bajarCabecera 0.7s var(--transicion) both;
+}
+
+@keyframes bajarCabecera {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+}
+
+#cabecera::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -40%;
+    width: 35%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--morado),
+        var(--azul),
+        transparent
+    );
+
+    animation: luzCabecera 7s linear infinite;
+}
+
+@keyframes luzCabecera {
+    to {
+        left: 120%;
+    }
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#logoIcono {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--degradado);
+    box-shadow: 0 0 25px rgba(var(--c1), 0.3);
+    transition: transform var(--rebote), box-shadow var(--transicion);
+    animation: latidoLogo 3.5s ease-in-out infinite;
+}
+
+@keyframes latidoLogo {
+    0%, 100% {
+        box-shadow: 0 0 18px rgba(var(--c1), 0.25);
+    }
+
+    50% {
+        box-shadow:
+            0 0 30px rgba(var(--c1), 0.5),
+            0 0 50px rgba(var(--c2), 0.2);
+    }
+}
+
+#logoIcono::before {
+    content: "♫";
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    animation: notaMusical 3.5s ease-in-out infinite;
+}
+
+@keyframes notaMusical {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-9deg) scale(1.06);
+    }
+
+    75% {
+        transform: rotate(9deg) scale(1.06);
+    }
+}
+
+#logoIcono:hover {
+    transform: rotate(-10deg) scale(1.15);
+}
+
+#tituloPagina {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #fff5ec,
+        #fcd34d,
+        #fb923c,
+        #fcd34d,
+        #fff5ec
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    animation: brilloTitulo 7s linear infinite;
+    transition: letter-spacing 0.5s ease, filter 0.4s ease;
+}
+
+@keyframes brilloTitulo {
+    to {
+        background-position: -250% 0;
+    }
+}
+
+#logo:hover #tituloPagina {
+    letter-spacing: 5px;
+    filter: drop-shadow(0 0 10px var(--brillo-morado));
+}
+
+#subtituloPagina {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: var(--secundario);
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+#contenido {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    width: 100%;
+    max-width: 1550px;
+    margin: 0 auto;
+    padding: 35px 5% 180px;
+}
+
+/* ==========================================
+   PLAYLIST
+========================================== */
+
+#playlist {
+    flex: 65;
+    min-width: 0;
+    padding: 28px;
+    border-radius: 22px;
+    background: rgba(31, 16, 16, 0.9);
+    border: 1px solid var(--borde);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+
+    animation: aparecerTarjeta 0.8s var(--transicion) 0.1s both;
+
+    transition:
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+@keyframes aparecerTarjeta {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+}
+
+#playlist:hover {
+    border-color: rgba(var(--c1), 0.3);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.25),
+        0 0 25px rgba(var(--c1), 0.06);
+}
+
+#cabeceraPlaylist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+#tituloPlaylist {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+#numeroCanciones {
+    padding: 8px 13px;
+    border-radius: 20px;
+    background: rgba(var(--c1), 0.12);
+    border: 1px solid rgba(var(--c1), 0.2);
+    color: var(--claro);
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: var(--transicion);
+}
+
+#numeroCanciones:hover {
+    background: rgba(var(--c1), 0.23);
+    box-shadow: 0 0 15px var(--brillo-morado);
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* ==========================================
+   LISTA DE CANCIONES
+========================================== */
+
+#listaCanciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 570px;
+
+    /* CORRECCIÓN: sin scroll horizontal (evita la línea morada) */
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    /* espacio para que el hover (desplazamiento + zoom) no se corte */
+    padding: 6px 14px 6px 8px;
+
+    border: none;
+    outline: none;
+    box-shadow: none;
+    scroll-behavior: smooth;
+}
+
+.cancion {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 13px;
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid transparent;
+    border-bottom: none;
+    outline: none;
+
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    /* entrada escalonada */
+    animation: entradaCancion 0.6s var(--transicion) backwards;
+
+    transition:
+        transform var(--transicion),
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+@keyframes entradaCancion {
+    from {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.97);
+    }
+}
+
+.cancion:nth-child(1) { animation-delay: 0.10s; }
+.cancion:nth-child(2) { animation-delay: 0.18s; }
+.cancion:nth-child(3) { animation-delay: 0.26s; }
+.cancion:nth-child(4) { animation-delay: 0.34s; }
+.cancion:nth-child(5) { animation-delay: 0.42s; }
+.cancion:nth-child(6) { animation-delay: 0.50s; }
+.cancion:nth-child(7) { animation-delay: 0.58s; }
+.cancion:nth-child(8) { animation-delay: 0.66s; }
+
+/* Reflejo que atraviesa cada canción */
+
+.cancion::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: -120%;
+    width: 65%;
+    height: 100%;
+
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(var(--c1), 0.18),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+}
+
+/* Barra de luz lateral que crece al pasar el ratón */
+
+.cancion::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 0;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, var(--morado), var(--azul));
+    box-shadow: 0 0 12px var(--brillo-morado);
+    transform: translateY(-50%);
+    transition: height 0.35s var(--transicion);
+}
+
+.cancion:hover::before {
+    left: 150%;
+}
+
+.cancion:hover::after {
+    height: 65%;
+}
+
+.cancion:hover {
+    background: linear-gradient(
+        110deg,
+        rgba(var(--c1), 0.14),
+        rgba(var(--c2), 0.09)
+    );
+
+    border-color: rgba(var(--c1), 0.45);
+    border-bottom: none;
+
+    transform: translateX(5px) scale(1.01);
+
+    box-shadow:
+        0 5px 20px rgba(var(--c1), 0.14),
+        0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cancion:active {
+    transform: scale(0.98);
+    transition-duration: 0.12s;
+}
+
+/* Canción que está sonando (usa la clase que tenga tu JS) */
+
+.cancion.activa,
+.cancion.activo,
+.cancion.sonando,
+.cancion.seleccionada,
+.cancion[aria-current="true"] {
+    background: linear-gradient(
+        110deg,
+        rgba(var(--c1), 0.2),
+        rgba(var(--c2), 0.12)
+    );
+    border-color: rgba(var(--c1), 0.55);
+    box-shadow: 0 0 22px rgba(var(--c1), 0.18);
+}
+
+.cancion.activa::after,
+.cancion.activo::after,
+.cancion.sonando::after,
+.cancion.seleccionada::after,
+.cancion[aria-current="true"]::after {
+    height: 65%;
+    animation: pulsoLateral 1.6s ease-in-out infinite;
+}
+
+@keyframes pulsoLateral {
+    0%, 100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.cancion img {
+    width: 66px;
+    height: 66px;
+    object-fit: cover;
+    border-radius: 11px;
+    flex-shrink: 0;
+
+    transition:
+        transform 0.5s var(--rebote),
+        border-radius 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.cancion:hover img {
+    transform: scale(1.1) rotate(-3deg);
+    border-radius: 16px;
+    box-shadow: 0 0 20px var(--brillo-morado);
+}
+
+.cancion h3 {
+    margin: 0 0 7px;
+    font-size: 16px;
+    color: var(--texto);
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+.cancion:hover h3 {
+    color: var(--claro);
+    transform: translateX(4px);
+    text-shadow: 0 0 12px rgba(var(--c1), 0.35);
+}
+
+.cancion p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--secundario);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.cancion:hover p {
+    color: var(--claro-3);
+    transform: translateX(4px);
+}
+
+/* Barra de desplazamiento vertical */
+
+#listaCanciones::-webkit-scrollbar {
+    width: 6px;
+}
+
+#listaCanciones::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#listaCanciones::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        var(--morado),
+        var(--azul)
+    );
+
+    border-radius: 10px;
+}
+
+/* Por si acaso: nunca mostrar barra horizontal */
+
+#listaCanciones::-webkit-scrollbar:horizontal {
+    display: none;
+    height: 0;
+}
+
+/* ==========================================
+   PANEL DERECHO
+========================================== */
+
+#panelDerecho {
+    flex: 35;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==========================================
+   CANCIÓN ACTUAL
+========================================== */
+
+#cancionActual {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 23px;
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(var(--c1), 0.13),
+            rgba(var(--c2), 0.05)
+        ),
+        var(--tarjeta);
+
+    border: 1px solid var(--borde);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+
+    animation: aparecerTarjeta 0.8s var(--transicion) 0.25s both;
+
+    transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+#cancionActual:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--c1), 0.4);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(var(--c1), 0.1);
+}
+
+#imagenCancion {
+    width: 115px;
+    height: 115px;
+    object-fit: cover;
+    border-radius: 16px;
+    flex-shrink: 0;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+
+    /* flota suavemente (usa "translate", así no choca con el hover) */
+    animation: flotarPortada 5s ease-in-out infinite;
+
+    transition:
+        transform 0.5s var(--rebote),
+        box-shadow 0.4s ease,
+        border-radius 0.4s ease;
+}
+
+@keyframes flotarPortada {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -6px;
+    }
+}
+
+#cancionActual:hover #imagenCancion {
+    transform: scale(1.08) rotate(2deg);
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 20px var(--brillo-morado),
+        0 0 35px var(--brillo-azul);
+}
+
+#informacionCancion {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+#estadoCancion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--claro);
+}
+
+/* Punto "en directo" que late */
+
+#estadoCancion::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--morado);
+    box-shadow: 0 0 0 0 rgba(var(--c1), 0.7);
+    animation: puntoDirecto 1.8s ease-out infinite;
+}
+
+@keyframes puntoDirecto {
+    to {
+        box-shadow: 0 0 0 9px rgba(var(--c1), 0);
+    }
+}
+
+#tituloCancion {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+#cancionActual:hover #tituloCancion {
+    color: var(--claro);
+    text-shadow: 0 0 16px rgba(var(--c1), 0.35);
+}
+
+#artistaCancion {
+    margin: 0;
+    color: var(--secundario);
+    font-size: 14px;
+}
+
+#generoCancion {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: rgba(var(--c1), 0.13);
+    color: var(--claro);
+    font-size: 12px;
+    transition: var(--transicion);
+}
+
+#generoCancion:hover {
+    transform: translateY(-2px) scale(1.06);
+    background: rgba(var(--c1), 0.25);
+    box-shadow: 0 0 15px var(--brillo-morado);
+}
+
+/* ==========================================
+   ECUALIZADOR
+========================================== */
+
+#ecualizador {
+    padding: 23px;
+    border-radius: 22px;
+    background: rgba(31, 16, 16, 0.92);
+    border: 1px solid var(--borde);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+
+    animation: aparecerTarjeta 0.8s var(--transicion) 0.4s both;
+
+    transition:
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+#ecualizador:hover {
+    border-color: rgba(var(--c1), 0.35);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.2),
+        0 0 25px rgba(var(--c1), 0.08);
+}
+
+#cabeceraEcualizador {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#tituloEcualizador {
+    margin: 0;
+    font-size: 19px;
+}
+
+#estadoEcualizador {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: rgba(var(--c1), 0.12);
+    color: var(--claro);
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* ==========================================
+   VISUALIZADOR ANIMADO
+========================================== */
+
+#visualizador {
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 14px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(var(--c1), 0.13),
+            transparent 70%
+        ),
+        rgba(14, 6, 6, 0.85);
+
+    border: 1px solid rgba(var(--c1), 0.1);
+    overflow: hidden;
+
+    transition:
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+#visualizador:hover {
+    border-color: rgba(var(--c1), 0.35);
+    box-shadow: inset 0 0 25px rgba(var(--c1), 0.08);
+}
+
+.barraEcualizador {
+    flex: 1;
+    min-width: 0;
+    max-width: 9px;
+    height: 20%;
+    border-radius: 6px;
+
+    background: linear-gradient(
+        to top,
+        var(--azul),
+        var(--morado),
+        var(--claro)
+    );
+
+    box-shadow: 0 0 8px rgba(var(--c1), 0.3);
+    transform-origin: bottom;
+
+    animation: movimientoBarras 1.1s ease-in-out infinite alternate;
+
+    transition:
+        height 0.12s ease,
+        filter 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Cada barra con su propio ritmo para que parezca música real */
+
+.barraEcualizador:nth-child(2n) {
+    animation-duration: 0.85s;
+    animation-delay: -0.3s;
+}
+
+.barraEcualizador:nth-child(3n) {
+    animation-duration: 1.35s;
+    animation-delay: -0.7s;
+}
+
+.barraEcualizador:nth-child(4n) {
+    animation-duration: 0.7s;
+    animation-delay: -0.5s;
+}
+
+.barraEcualizador:nth-child(5n) {
+    animation-duration: 1.6s;
+    animation-delay: -0.2s;
+}
+
+#visualizador:hover .barraEcualizador {
+    filter: brightness(1.5);
+    box-shadow: 0 0 12px var(--brillo-morado);
+}
+
+@keyframes movimientoBarras {
+    from {
+        transform: scaleY(0.5);
+        filter: brightness(0.85);
+    }
+
+    to {
+        transform: scaleY(1.1);
+        filter: brightness(1.35);
+    }
+}
+
+/* ==========================================
+   CONTROLES DEL ECUALIZADOR
+========================================== */
+
+#controlesAudio {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#controlGraves,
+#controlMedios,
+#controlAgudos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#controlGraves label,
+#controlMedios label,
+#controlAgudos label {
+    width: 55px;
+    flex-shrink: 0;
+    color: var(--secundario);
+    font-size: 13px;
+    transition: color 0.3s ease;
+}
+
+#controlGraves:hover label,
+#controlMedios:hover label,
+#controlAgudos:hover label {
+    color: var(--claro);
+}
+
+#controlGraves input,
+#controlMedios input,
+#controlAgudos input {
+    flex: 1;
+    min-width: 0;
+    transition: filter 0.3s ease;
+}
+
+#controlGraves input:hover,
+#controlMedios input:hover,
+#controlAgudos input:hover {
+    filter: drop-shadow(0 0 5px var(--brillo-morado));
+}
+
+#valorGraves,
+#valorMedios,
+#valorAgudos {
+    width: 43px;
+    flex-shrink: 0;
+    text-align: right;
+    color: var(--claro);
+    font-size: 12px;
+}
+
+/* ==========================================
+   BOTÓN RESTABLECER
+========================================== */
+
+#btnRestablecer {
+    width: 100%;
+    margin-top: 23px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--c1), 0.3);
+    background: rgba(var(--c1), 0.12);
+    color: var(--claro-2);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#btnRestablecer:hover {
+    background: var(--degradado);
+    color: white;
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 5px 20px var(--brillo-morado),
+        0 0 20px rgba(var(--c2), 0.12);
+}
+
+#btnRestablecer:active {
+    transform: scale(0.96);
+}
+
+/* ==========================================
+   REPRODUCTOR INFERIOR
+   CRISTAL OSCURO + REFLEJO NEÓN
+========================================== */
+
+#reproductor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+
+    padding: 16px 5% 20px;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 0%,
+            rgba(var(--c1), 0.16),
+            transparent 55%
+        ),
+        linear-gradient(
+            120deg,
+            rgba(20, 8, 8, 0.9),
+            rgba(38, 14, 12, 0.94),
+            rgba(26, 11, 8, 0.93)
+        );
+
+    border-top: 1px solid rgba(var(--c1), 0.3);
+
+    backdrop-filter: blur(28px) saturate(150%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+
+    box-shadow:
+        0 -10px 40px rgba(0, 0, 0, 0.4),
+        0 -2px 25px rgba(var(--c1), 0.08);
+
+    overflow: hidden;
+    isolation: isolate;
+
+    animation: subirReproductor 0.8s var(--transicion) 0.3s both;
+
+    transition:
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+@keyframes subirReproductor {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+/* Reflejo luminoso que recorre la parte superior */
+
+#reproductor::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -35%;
+    width: 35%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--morado),
+        var(--c2-claro),
+        var(--claro),
+        transparent
+    );
+
+    box-shadow:
+        0 0 12px var(--morado),
+        0 0 25px rgba(var(--c2), 0.6);
+
+    animation: luzReproductor 5s ease-in-out infinite;
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Reflejo suave sobre el cristal */
+
+#reproductor::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+
+    background: linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(var(--c1), 0.035) 45%,
+        rgba(var(--c2), 0.045) 55%,
+        transparent 80%
+    );
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes luzReproductor {
+    0% {
+        left: -35%;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 110%;
+        opacity: 0;
+    }
+}
+
+#reproductor:hover {
+    border-top-color: rgba(var(--c1), 0.55);
+
+    box-shadow:
+        0 -12px 45px rgba(0, 0, 0, 0.45),
+        0 -3px 25px rgba(var(--c1), 0.12);
+}
+
+#reproductor #progreso,
+#reproductor #controlesReproductor {
+    position: relative;
+    z-index: 3;
+}
+
+/* ==========================================
+   BARRA DE PROGRESO
+========================================== */
+
+#progreso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 15px;
+}
+
+#tiempoActual,
+#tiempoTotal {
+    min-width: 35px;
+    color: var(--secundario);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
+}
+
+#tiempoTotal {
+    text-align: right;
+}
+
+#progreso:hover #tiempoActual,
+#progreso:hover #tiempoTotal {
+    color: var(--claro);
+}
+
+#barraProgreso {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+#barraProgreso:hover {
+    filter: drop-shadow(0 0 6px var(--brillo-morado));
+}
+
+/* ==========================================
+   CONTROLES DEL REPRODUCTOR
+========================================== */
+
+#controlesReproductor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 20px;
+}
+
+/* ==========================================
+   MINI CANCIÓN INTERACTIVA
+========================================== */
+
+#miniCancion {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+
+    padding: 9px;
+    margin: -9px;
+
+    border: 1px solid transparent;
+    border-radius: 17px;
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
+}
+
+#miniCancion:hover {
+    background: linear-gradient(
+        120deg,
+        rgba(var(--c1), 0.15),
+        rgba(var(--c2), 0.1)
+    );
+
+    border-color: rgba(var(--c1), 0.35);
+
+    box-shadow:
+        0 0 25px rgba(var(--c1), 0.12),
+        inset 0 0 15px rgba(var(--c2), 0.05);
+
+    transform: translateY(-3px);
+}
+
+#miniImagen {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.5s var(--rebote),
+        border-radius 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+#miniCancion:hover #miniImagen {
+    transform: scale(1.12) rotate(-3deg);
+    border-radius: 16px;
+
+    box-shadow:
+        0 0 15px rgba(var(--c1), 0.65),
+        0 0 30px rgba(var(--c2), 0.3);
+}
+
+#miniInformacion {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+#miniTitulo {
+    display: inline-block;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+#miniCancion:hover #miniTitulo {
+    color: var(--claro);
+    transform: translateX(4px);
+    text-shadow: 0 0 12px rgba(var(--c1), 0.4);
+}
+
+#miniArtista {
+    font-size: 12px;
+    color: var(--secundario);
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+#miniCancion:hover #miniArtista {
+    color: var(--claro-3);
+    transform: translateX(4px);
+}
+
+/* ==========================================
+   BOTONES DEL REPRODUCTOR
+========================================== */
+
+#botones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+#botones button {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border: 1px solid rgba(var(--c1), 0.08);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.025);
+    color: var(--texto);
+    font-size: 19px;
+    cursor: pointer;
+
+    transition:
+        transform 0.35s var(--rebote),
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#botones button:hover {
+    background: rgba(var(--c1), 0.2);
+    color: var(--claro-2);
+    border-color: rgba(var(--c1), 0.45);
+
+    transform: translateY(-5px) scale(1.12);
+
+    box-shadow:
+        0 5px 18px rgba(var(--c1), 0.22),
+        0 0 12px rgba(var(--c2), 0.1);
+}
+
+#botones button:active {
+    transform: scale(0.86);
+    background: rgba(var(--c1), 0.3);
+    transition-duration: 0.1s;
+
+    box-shadow:
+        0 0 18px rgba(var(--c1), 0.35);
+}
+
+/* Botón principal Play */
+
+#btnPlay {
+    position: relative;
+    width: 55px !important;
+    height: 55px !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 50%;
+
+    background: var(--degradado) !important;
+    color: white !important;
+    font-size: 23px !important;
+
+    box-shadow:
+        0 0 20px rgba(var(--c1), 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+
+    transition:
+        transform 0.35s var(--rebote),
+        box-shadow 0.3s ease,
+        filter 0.3s ease !important;
+}
+
+/* Anillo que se expande desde el botón Play */
+
+#btnPlay::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid rgba(var(--c1), 0.7);
+    pointer-events: none;
+    animation: anilloPlay 2.4s ease-out infinite;
+}
+
+@keyframes anilloPlay {
+    from {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    to {
+        transform: scale(1.7);
+        opacity: 0;
+    }
+}
+
+#btnPlay:hover {
+    transform: scale(1.14) !important;
+    filter: brightness(1.2);
+
+    box-shadow:
+        0 0 25px rgba(var(--c1), 0.65),
+        0 0 45px rgba(var(--c2), 0.3),
+        inset 0 1px 3px rgba(255, 255, 255, 0.3);
+}
+
+#btnPlay:active {
+    transform: scale(0.92) !important;
+    filter: brightness(0.95);
+}
+
+/* ==========================================
+   ALEATORIO Y REPETIR ACTIVADOS
+========================================== */
+
+#btnAleatorio.activo,
+#btnRepetir.activo {
+    background: rgba(var(--c1), 0.2);
+    color: var(--claro);
+    border-color: rgba(var(--c1), 0.5);
+
+    box-shadow: 0 0 15px rgba(var(--c1), 0.2);
+
+    animation: brilloBotonActivo 2s ease-in-out infinite;
+}
+
+@keyframes brilloBotonActivo {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(var(--c1), 0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(var(--c1), 0.4);
+    }
+}
+
+/* ==========================================
+   VOLUMEN
+========================================== */
+
+#controlVolumen {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 12px;
+    width: 200px;
+    min-width: 0;
+
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#controlVolumen:hover {
+    background: rgba(var(--c1), 0.09);
+    border-color: rgba(var(--c1), 0.25);
+    box-shadow: 0 0 18px rgba(var(--c1), 0.08);
+}
+
+#iconoVolumen {
+    font-size: 20px;
+    transition: transform 0.4s var(--rebote), color 0.3s ease;
+}
+
+#controlVolumen:hover #iconoVolumen {
+    transform: scale(1.25) rotate(-8deg);
+    color: var(--claro);
+}
+
+#volumen {
+    flex: 1;
+    min-width: 0;
+}
+
+#valorVolumen {
+    width: 40px;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--secundario);
+}
+
+/* ==========================================
+   BARRAS DESLIZANTES
+========================================== */
+
+input[type="range"] {
+    accent-color: var(--morado);
+    cursor: pointer;
+    height: 6px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.25);
+    box-shadow: 0 0 12px rgba(var(--c1), 0.6);
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+========================================== */
+
+@media (max-width: 1050px) {
+
+    #contenido {
+        flex-direction: column;
+    }
+
+    #playlist,
+    #panelDerecho {
+        width: 100%;
+        flex: none;
+    }
+
+    #controlesReproductor {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 15px;
+    }
+
+    #controlVolumen {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE - MÓVIL
+========================================== */
+
+@media (max-width: 650px) {
+
+    #cabecera {
+        height: 75px;
+        padding: 12px 18px;
+    }
+
+    #logoIcono {
+        width: 43px;
+        height: 43px;
+    }
+
+    #tituloPagina {
+        font-size: 21px;
+    }
+
+    #contenido {
+        padding: 20px 15px 280px;
+        gap: 20px;
+    }
+
+    #playlist,
+    #ecualizador {
+        padding: 18px;
+    }
+
+    #tituloPlaylist {
+        font-size: 19px;
+    }
+
+    #cabeceraPlaylist {
+        flex-wrap: wrap;
+    }
+
+    .cancion img {
+        width: 55px;
+        height: 55px;
+    }
+
+    #cancionActual {
+        padding: 18px;
+        gap: 12px;
+    }
+
+    #imagenCancion {
+        width: 95px;
+        height: 95px;
+    }
+
+    #tituloCancion {
+        font-size: 18px;
+    }
+
+    #visualizador {
+        height: 85px;
+        padding: 10px;
+    }
+
+    #reproductor {
+        padding: 12px 15px 18px;
+    }
+
+    #controlesReproductor {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 12px;
+    }
+
+    #miniCancion {
+        width: 100%;
+    }
+
+    #miniImagen {
+        width: 45px;
+        height: 45px;
+    }
+
+    #miniCancion:hover {
+        transform: none;
+    }
+
+    #miniCancion:hover #miniImagen {
+        transform: scale(1.06);
+    }
+
+    #botones {
+        gap: 8px;
+    }
+
+    #botones button {
+        width: 40px;
+        height: 40px;
+    }
+
+    #botones button:hover {
+        transform: translateY(-2px) scale(1.04);
+    }
+
+    #btnPlay {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    #btnPlay:hover {
+        transform: scale(1.06) !important;
+    }
+
+    #controlVolumen {
+        grid-column: auto;
+        justify-self: center;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .cancion:hover {
+        transform: translateX(3px);
+    }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
