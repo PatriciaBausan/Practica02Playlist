@@ -40,20 +40,49 @@ const canciones = [
         imagen: "imagenes/Medicine.png"
     },
 
-        {
+    {
         titulo: "Christmas",
         artista: "Tunetank",
         genero: "Navidad",
         audio: "audio/navidad.mp3",
         imagen: "imagenes/navidad.png"
     },
-        {
+    {
         titulo: "Bring Back the Swing",
         artista: "EvolvingVibes",
         genero: "Upbeat Jazz",
         audio: "audio/bring.mp3",
         imagen: "imagenes/Bring.png"
     },
+    {
+        titulo: "Worth A Try",
+        artista: "Leonell Cassio SE",
+        genero: "Electropop Music",
+        audio: "audio/Worth.mp3",
+        imagen: "imagenes/Worth.png"
+    },
+    {
+        titulo: "Noche de Barrio",
+        artista: "Bannyboy",
+        genero: "Latín Urbano",
+        audio: "audio/Noche.mp3",
+        imagen: "imagenes/Noche.png"
+    },
+    {
+        titulo: "Ciúme na Noite",
+        artista: "djovan",
+        genero: "Música Pop",
+        audio: "audio/Ciúme.mp3",
+        imagen: "imagenes/Ciúme.png"
+    },
+    {
+        titulo: "Adeus em Alfama",
+        artista: "djovan",
+        genero: "Vocal",
+        audio: "audio/Adeus.mp3",
+        imagen: "imagenes/Adeus.png"
+    },
+
 
 
 ];

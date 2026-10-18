@@ -299,7 +299,8 @@ input:focus-visible,
 #playlist {
     flex: 65;
     min-width: 0;
-    padding: 28px;
+    /* Ajuste de padding para pegar el scroll al borde derecho */
+    padding: 28px 0 28px 28px;
     border-radius: 22px;
     background: rgba(31, 16, 16, 0.9);
     border: 1px solid var(--borde);
@@ -333,6 +334,7 @@ input:focus-visible,
     align-items: center;
     gap: 15px;
     margin-bottom: 25px;
+    padding-right: 28px; /* Compensamos el padding derecho eliminado de la tarjeta padre */
 }
 
 #tituloPlaylist {
@@ -367,20 +369,46 @@ input:focus-visible,
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-height: 570px;
+    max-height: 570px; /* Altura máxima antes de hacer scroll */
 
-    /* CORRECCIÓN: sin scroll horizontal (evita la línea morada) */
+    /* Scroll vertical forzado y sin scroll horizontal */
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
 
-    /* espacio para que el hover (desplazamiento + zoom) no se corte */
-    padding: 6px 14px 6px 8px;
+    /* Espacio para que el hover no se corte y separar del scroll */
+    padding: 6px 20px 6px 8px;
 
     border: none;
     outline: none;
     box-shadow: none;
     scroll-behavior: smooth;
+    
+    /* Soporte Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--morado) transparent;
 }
+
+/* Diseño de la barra de desplazamiento */
+#listaCanciones::-webkit-scrollbar {
+    width: 8px;
+}
+
+#listaCanciones::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 10px; /* Evita que choque con los bordes curvos de la tarjeta */
+}
+
+#listaCanciones::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--morado), var(--azul));
+    border-radius: 10px;
+}
+
+/* Por si acaso: nunca mostrar barra horizontal */
+#listaCanciones::-webkit-scrollbar:horizontal {
+    display: none;
+    height: 0;
+}
+
 
 .cancion {
     display: flex;
@@ -575,33 +603,6 @@ input:focus-visible,
 .cancion:hover p {
     color: var(--claro-3);
     transform: translateX(4px);
-}
-
-/* Barra de desplazamiento vertical */
-
-#listaCanciones::-webkit-scrollbar {
-    width: 6px;
-}
-
-#listaCanciones::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-#listaCanciones::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        180deg,
-        var(--morado),
-        var(--azul)
-    );
-
-    border-radius: 10px;
-}
-
-/* Por si acaso: nunca mostrar barra horizontal */
-
-#listaCanciones::-webkit-scrollbar:horizontal {
-    display: none;
-    height: 0;
 }
 
 /* ==========================================
