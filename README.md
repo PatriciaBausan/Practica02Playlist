@@ -48,18 +48,21 @@ Practica 2
 │
 └── imagenes/           # Recursos gráficos[cite: 5]
     ├── prefekt.png     # Portadas de las canciones[cite: 5]
-    ├── ...             #[cite: 5]
-    └── Adeus.png       #[cite: 5]
+    ├── ...             
+    └── Adeus.png       
+```
+
+---
 ## 💻 Tecnologías utilizadas
 - **HTML5** — Estructura semántica del reproductor.
 - **CSS3** — Diseño responsivo, variables CSS, Flexbox/Grid y animaciones avanzadas.
-- **JavaScript (ES6)** — Lógica del reproductor, manipulación del DOM y control de audio.
+- **JavaScript** — Lógica del reproductor, manipulación del DOM y control de audio.
 - **Howler.js** — Librería externa utilizada para el manejo avanzado y simplificado del audio web y los nodos del ecualizador.
 - **Web Audio API** — Uso nativo para la creación de los filtros Biquad (Graves, Medios, Agudos) y el AnalyserNode para el visualizador.
 - **Git & GitHub** — Control de versiones y alojamiento del código.
 
 ## 👩‍💻 Autora
-**Patricia Bausan Gómez**[cite: 5]  
+**Patricia Bausan Gómez**  
 Proyecto realizado para el ciclo de Desarrollo de Aplicaciones Web (DAW).
 
 ## 📚 Proyecto académico
