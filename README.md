@@ -28,26 +28,24 @@ El reproductor cumple con las siguientes características:
 
 ## 📁 Estructura del proyecto
 
-Basado en la organización del repositorio[cite: 5], el proyecto se estructura de la siguiente manera:
-
 ```text
 Practica 2
 │
-├── index.html          # Estructura principal de la aplicación web[cite: 5]
+├── index.html          # Estructura principal de la aplicación web
 │
-├── css/                # Carpeta de estilos[cite: 5]
-│   └── style.css       # Diseño visual, animaciones y layout dinámico[cite: 5]
+├── css/                # Carpeta de estilos
+│   └── style.css       # Diseño visual, animaciones y layout dinámico
 │
-├── js/                 # Lógica de la aplicación[cite: 5]
-│   └── app.js          # Control del reproductor, ecualizador web audio y playlist[cite: 5]
+├── js/                 # Lógica de la aplicación 
+│   └── app.js          # Control del reproductor, ecualizador web audio y playlist
 │
-├── audio/              # Archivos de sonido[cite: 5]
-│   ├── Prefekt.mp3     # Pistas de audio en formato mp3[cite: 5]
-│   ├── ...             #[cite: 5]
-│   └── Adeus.mp3       #[cite: 5]
+├── audio/              # Archivos de sonido
+│   ├── Prefekt.mp3     
+│   ├── ...             
+│   └── Adeus.mp3       
 │
-└── imagenes/           # Recursos gráficos[cite: 5]
-    ├── prefekt.png     # Portadas de las canciones[cite: 5]
+└── imagenes/           # Portada de las imágenes de las canciones
+    ├── prefekt.png     
     ├── ...             
     └── Adeus.png       
 ```
